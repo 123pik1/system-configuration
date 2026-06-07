@@ -1,0 +1,28 @@
+# --- Budowanie i środowisko NixOS ---
+# Symlinki tworzone po udanym budowaniu systemu lub maszyny wirtualnej
+result
+result-*
+
+# --- Hasła, klucze i sekrety ---
+# NIGDY nie commituj plików zawierających hasła jawnym tekstem!
+*.key
+*.pem
+*.json # Uważaj tu na certyfikaty z Cloudflare, jeśli trzymasz je w tym folderze
+
+# --- Edytory kodu i IDE ---
+# Używasz Neovima, więc pliki swap to podstawa do zignorowania
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Jeśli kiedyś użyjesz VSCode lub IntelliJ
+.vscode/
+.idea/
+
+# --- Różne pliki systemowe i logi ---
+*.log
+.DS_Store
+
+*.qcow2
+.pgdata/

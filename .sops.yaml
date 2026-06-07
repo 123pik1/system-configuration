@@ -1,0 +1,10 @@
+keys:
+  - &main_laptop age1hgg8qn2me28ej4hcapukxl390x6rhfvay7ltcgdm3hmsg3y4q3mqhsxfc2
+  - &server age1f0473jsktskxs5h3wdl535seyvyfcdwpl2japapr6tfpadxcmdtqn3q4zg
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+    - age:
+        - *main_laptop
+        - *server
