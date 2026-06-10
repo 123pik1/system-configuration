@@ -25,6 +25,8 @@
         owner = "pik";
     };
 
+    system.nixos.distroName = "NixOS btw";
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

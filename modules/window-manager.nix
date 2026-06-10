@@ -19,9 +19,8 @@
     config.common.default = "*";
   };
 
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
-  # programs.niri.enable = true;
 
   # for auth in file manager to mount disks
   security.polkit.enable = true;
