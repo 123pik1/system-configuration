@@ -16,6 +16,9 @@
       env = [
         "QT_QPA_PLATFORMTHEME,qt6ct"
         #      "QT_STYLE_OVERRIDE,kvantum"
+
+"XCURSOR_THEME,breeze_cursors" 
+        "XCURSOR_SIZE,24"
       ];
 
       #Monitor
@@ -40,6 +43,9 @@
         "sleep 2 && ${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &"
         "fancy-hyprland"
  #       "toggle-hyprland-fancy_battery"
+"hyprctl setcursor breeze_cursors 24"
+
+"blueman-applet &"
 
       ];
 

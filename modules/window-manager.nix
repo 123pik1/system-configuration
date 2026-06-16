@@ -6,8 +6,8 @@
   };
 
   services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+    enable = false;
+    wayland.enable = false;
   };
 
   xdg.portal = {
@@ -18,6 +18,21 @@
     ];
     config.common.default = "*";
   };
+
+
+    services.greetd = {
+        enable = true;
+        settings = {
+          default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+            user = "greeter";
+          };
+        }
+        ;
+    };
+
+
+  # systemd.defaultUnit = pkgs.lib.mkForce "multi-user.target";
 
   # services.desktopManager.plasma6.enable = true;
 

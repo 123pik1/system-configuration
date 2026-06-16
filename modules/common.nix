@@ -71,6 +71,11 @@ in
 
   environment.systemPackages = with pkgs; [
 
+    yazi
+
+    kdePackages.breeze
+
+    onefetch
 
     # for security
     sops
@@ -307,4 +312,24 @@ programs.direnv = {
 enable = true;
 nix-direnv.enable = true;
 };
+
+
+# Wyłącz PulseAudio (wchodzi w konflikt z PipeWire)
+hardware.pulseaudio.enable = false;
+security.rtkit.enable = true;
+
+# Włącz PipeWire z obsługą protokołu Pulse
+services.pipewire = {
+  enable = true;
+  alsa.enable = true;
+  alsa.support32Bit = true;
+  pulse.enable = true;
+};
+
+# Włącz Bluetooth
+hardware.bluetooth.enable = true;
+hardware.bluetooth.powerOnBoot = true; # automatyczne uruchamianie adaptera przy starcie
+
+# Włącz Blueman (bardzo wygodny interfejs graficzny dla Waylanda/Hyprlanda)
+services.blueman.enable = true;
 }
