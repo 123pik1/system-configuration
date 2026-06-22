@@ -32,6 +32,7 @@ in
   };
 
   environment.systemPackages = [
+    pkgs.yazi
     pkgs.fastfetch
     pkgs.cloudflared
     pkgs.javaPackages.compiler.temurin-bin.jdk-25

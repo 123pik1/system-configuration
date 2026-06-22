@@ -31,7 +31,7 @@
       };
     };
 
-    diagnostics = {
+    diagnostic.settings = {
         virtualLines.enable = true;
         virtualText = true;
         signs = true;
@@ -134,9 +134,8 @@
         settings = {
             filters.dotfiles = false;
             git.enable = true;
-        };
-      
-        onAttach = {
+    
+            on_attach = {
             __raw = ''
             function(bufnr)
                 local api = require('nvim-tree.api')
@@ -149,6 +148,10 @@
             end
             '';
         };
+
+   };
+      
+
       };
 
       comment.enable = true;
@@ -160,7 +163,7 @@
             enable = true;
         };
 
-        crates-nvim = {
+        crates = {
             enable = true;
         };
 

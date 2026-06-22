@@ -5,6 +5,7 @@
     xwayland.enable = true;
   };
 
+
   services.displayManager.sddm = {
     enable = false;
     wayland.enable = false;
@@ -24,7 +25,7 @@
         enable = true;
         settings = {
           default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
             user = "greeter";
           };
         }
@@ -43,6 +44,8 @@
   # Packages needed when using hyprland not necessarily when using other window manager
   environment.systemPackages = with pkgs; [
     wl-clipboard
+
+    nwg-drawer
 
     ghostty
 

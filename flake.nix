@@ -12,7 +12,10 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rust-overlay ={
+        url = "github:oxalica/rust-overlay";  
     };
 
     sops-nix = {
@@ -29,12 +32,16 @@
       nur,
       nixvim,
       sops-nix,
+      rust-overlay,
       ...
     }@inputs:
     let
         system = "x86_64-linux";
+        
+        overlays = [ (import rust-overlay) inputs.nur.overlays.default];
+
         pkgs = import nixpkgs {
-            inherit system;
+            inherit system overlays;
             config.allowUnfree = true;
         };
     in
@@ -86,7 +93,8 @@
         rust = import ./shells/rust.nix {inherit pkgs;};
         cpp = import ./shells/cpp.nix {inherit pkgs;};
         tauri = import ./shells/tauri.nix {inherit pkgs;};
-      };
+        rust96 = import ./shells/rust-1.96.nix {inherit pkgs;};
+        };
     };
 
 }

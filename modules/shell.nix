@@ -25,6 +25,7 @@ programs.zsh = {
             alias tex-dev="nix develop ${flakeDir}#latex -c zsh"
             alias latex-dev="tex-dev"
             alias e="exit"
+            alias drag="ripdrag"
         '';
     };
 

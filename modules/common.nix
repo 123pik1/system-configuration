@@ -71,7 +71,7 @@ in
 
   environment.systemPackages = with pkgs; [
 
-    yazi
+    ripdrag
 
     kdePackages.breeze
 
@@ -315,7 +315,7 @@ nix-direnv.enable = true;
 
 
 # Wyłącz PulseAudio (wchodzi w konflikt z PipeWire)
-hardware.pulseaudio.enable = false;
+services.pulseaudio.enable = false;
 security.rtkit.enable = true;
 
 # Włącz PipeWire z obsługą protokołu Pulse

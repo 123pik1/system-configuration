@@ -3,11 +3,15 @@
   imports = [
     ./waybar.nix
     ./viewConf.nix
+    ./file-explorer.nix
     #   ./hyprpaper.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+
+    configType = "hyprlang";
+
 
     plugins = [
     ];
@@ -27,7 +31,7 @@
       #Variables
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
-      "$menu" = "wofi --show drun";
+      "$menu" = "wofi --show drun --allow-images";
 
       # startup programs
       exec-once = [
@@ -155,6 +159,10 @@
         "CTRL, period,focusworkspaceoncurrentmonitor, +1"
         "CTRL, comma,focusworkspaceoncurrentmonitor, -1"
 
+      ];
+
+      bindr = [
+        "$mod, SUPER_L, exec, nwg-drawer"
       ];
 
       plugin = {
