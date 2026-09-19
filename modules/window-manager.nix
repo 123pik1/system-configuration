@@ -35,7 +35,7 @@
 
   # systemd.defaultUnit = pkgs.lib.mkForce "multi-user.target";
 
-  # services.desktopManager.plasma6.enable = true;
+ #services.desktopManager.plasma6.enable = true;
 
 
   # for auth in file manager to mount disks

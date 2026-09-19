@@ -71,6 +71,8 @@ in
 
   environment.systemPackages = with pkgs; [
 
+    traceroute
+
     ripdrag
 
     kdePackages.breeze

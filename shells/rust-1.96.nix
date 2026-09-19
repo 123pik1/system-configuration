@@ -5,8 +5,13 @@ let
     };
 in
 pkgs.mkShell {
+    nativeBuildInputs = [
+        pkgs.pkg-config
+    ];
+
     buildInputs = [
         rustToolchain
+        pkgs.libpcap
     ];
     
     RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
