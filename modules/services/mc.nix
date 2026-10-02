@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  systemd.services.mc-serwer = {
-    description = "Prywatny serwer Minecraft";
+  systemd.services.mc-server = {
+    description = "Minecraft server in background";
     serviceConfig = {
       Type = "simple";
       User = "pik";

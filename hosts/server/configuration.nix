@@ -18,6 +18,7 @@
     ./../../modules/shell.nix
     ./../../modules/services/gitea.nix
     ./../../modules/services/mc.nix
+    ./../../modules/services/rebuild-switch.nix
     ./../../modules/secrets.nix
     ];
 

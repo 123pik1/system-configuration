@@ -68,6 +68,7 @@
           specialArgs = {
             inherit inputs;
             useHomeManager = false;
+            flakePath  = "/home/pik/system-configuration#server"; 
           };
           modules = [
             { nixpkgs.overlays = [ inputs.nur.overlays.default ]; }
