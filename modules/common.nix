@@ -173,8 +173,7 @@ in
     fzf
     ctags
 
-    # micro preview markdown plugin dependiences
-    grip
+
 
     #############
     # languages #
@@ -286,7 +285,7 @@ in
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
-  services.dbus.packages = [ pkgs.gcr ];
+  services.dbus.packages = [ pkgs.gcr_4 ];
 
   services.tailscale = {
     enable = true;

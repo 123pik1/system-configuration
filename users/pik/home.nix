@@ -30,26 +30,32 @@
     };
   };
 
-  programs.ssh = {
+programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
+    
     matchBlocks = {
-
+      # Konfiguracja ogólna dla wszystkich hostów
       "*" = {
         setEnv = {
           TERM = "xterm";
         };
       };
 
+      # Host zewnętrzny przez Cloudflare
       "server" = {
         hostname = "ssh.123pik1.ovh";
         user = "pik";
         proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
       };
+
+      # Host lokalny
       "local-server" = {
         hostname = "192.168.100.1";
         user = "pik";
       };
+
+      # Host Tailscale
       "tailscale-server" = {
         hostname = "100.87.208.9";
         user = "pik";
