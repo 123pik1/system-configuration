@@ -119,4 +119,6 @@
 
   # home-manager.users.pik = ./modules/home-manager/pik-home.nix;
 
+   programs.nix-ld.enable = true;
+
 }

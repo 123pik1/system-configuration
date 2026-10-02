@@ -17,6 +17,7 @@
     ./../../modules/database.nix
     ./../../modules/shell.nix
     ./../../modules/services/gitea.nix
+    ./../../modules/services/mc.nix
     ./../../modules/secrets.nix
     ];
 

@@ -94,6 +94,7 @@
         cpp = import ./shells/cpp.nix {inherit pkgs;};
         tauri = import ./shells/tauri.nix {inherit pkgs;};
         rust96 = import ./shells/rust-1.96.nix {inherit pkgs;};
+        mc = import ./shells/mc.nix {inherit pkgs;};
         };
     };
 
