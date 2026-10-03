@@ -5,7 +5,7 @@
     description = "Rebuild NixOS in background";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake ${flakePath}";
+      ExecStart = "${pkgs.systemd}/bin/systemd-run --unit=nixos-update-remote --collect --no-ask-password ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake ${flakePath}";
     };
   };
 }
