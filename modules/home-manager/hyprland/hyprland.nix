@@ -161,10 +161,6 @@
 
       ];
 
-      bindr = [
-        "$mod, SUPER_L, exec, nwg-drawer"
-      ];
-
       plugin = {
         overview = {
           panelHeight = 150;
