@@ -71,6 +71,8 @@ in
 
   environment.systemPackages = with pkgs; [
 
+    texstudio
+
     traceroute
 
     ripdrag
