@@ -1,7 +1,7 @@
 {pkgs}:
 pkgs.mkShell {
     buildInputs = [
-        pkgs.nodejs_20
+        pkgs.nodejs_26
         pkgs.angular-language-server
         pkgs.typescript-language-server
     ];
