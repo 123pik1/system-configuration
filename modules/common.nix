@@ -66,12 +66,18 @@ let
 
 in
 {
-    
+    # Aider
+    nixpkgs.overlays = [
+        (final: prev: {
+            aider-chat = prev.aider-chat.overridePythonAttrs (_: {
+            doCheck = false;
+            });
+        })
+    ];
 
 
   environment.systemPackages = with pkgs; [
 
-    aider-chat
 
     texstudio
 
