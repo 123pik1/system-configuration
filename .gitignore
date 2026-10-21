@@ -26,3 +26,4 @@ result-*
 
 *.qcow2
 .pgdata/
+.aider*

@@ -66,14 +66,18 @@ let
 
 in
 {
-    # Aider
-    nixpkgs.overlays = [
-        (final: prev: {
-            aider-chat = prev.aider-chat.overridePythonAttrs (_: {
-            doCheck = false;
-            });
-        })
-    ];
+    # Aider overlay
+nixpkgs.overlays = [
+  (final: prev: {
+    aider-chat = prev.aider-chat.overridePythonAttrs (old: {
+      doCheck = false;
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace aider/exceptions.py \
+          --replace-fail 'raise ValueError(f"{var} is in litellm but not in aider'\'''s exceptions list")' 'pass'
+      '';
+    });
+  })
+];
 
 
   environment.systemPackages = with pkgs; [
