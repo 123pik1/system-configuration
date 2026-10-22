@@ -68,7 +68,7 @@ in
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.${domain}";
-    package = pkgs.nextcloud35;
+    package = pkgs.nextcloud;
 
     database.createLocally = true;
     configureRedis = true;
