@@ -69,7 +69,7 @@ in
 
 
   environment.systemPackages = with pkgs; [
-    gemini-cli
+    antigravity-cli
 
     texstudio
 
