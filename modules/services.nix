@@ -77,8 +77,6 @@ in
 
     config = {
       dbtype = "pgsql";
-      adminuser = "admin";
-      adminpassFile = "/etc/nixos/secrets/nextcloud-admin-pass";
     };
 
     maxUploadSize = "300G";
