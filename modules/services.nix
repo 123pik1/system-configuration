@@ -31,13 +31,13 @@ in
 
     sops.secrets."discord_token" = {};
 
-  sops.templates."discord_bot.env".content = ''
-    DISCORD_TOKEN=${config.sops.placeholder.discord_token}
-  '';
+    sops.templates."discord_bot.env".content = ''
+        DISCORD_TOKEN=${config.sops.placeholder.discord_token}
+    '';
 
-  sops.templates."blog_backend.env".content = ''
-    SPRING_DATASOURCE_PASSWORD=${config.sops.placeholder.blog_db_password}
-  '';
+    sops.templates."blog_backend.env".content = ''
+        SPRING_DATASOURCE_PASSWORD=${config.sops.placeholder.blog_db_password}
+    '';
 
 
   services.cloudflared = {
@@ -136,7 +136,7 @@ in
         '';
       };
     };
-    myf-bot = {
+    /*myf-bot = {
       description = "Uploading discord bot";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -150,7 +150,7 @@ in
         EnvironmentFile = config.sops.templates."discord_bot.env".path;
       };
       
-    };
+    };*/
   };
 
   systemd.timers.nextcloudBackup = {
