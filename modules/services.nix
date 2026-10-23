@@ -66,6 +66,8 @@ in
  #         "nextcloud.${domain}" = "http://localhost:${nextcloudPort}";
           #"ami.${domain}" = "http://127.0.0.1:8080";
           "www.${domain}" = "http://127.0.0.1:${wwwPort}";
+          # instead of nextcloud
+          "drive.${domain}" = "https://127.0.0.1:${drivePort}";
           #"dashboard.${domain}" = "http://127.0.0.1:${dashboardPort}";
           #"git.${domain}" = "http://127.0.0.1:6969";
           "whiteboard.${domain}" = "http://127.0.0.1:${whiteboardPort}";

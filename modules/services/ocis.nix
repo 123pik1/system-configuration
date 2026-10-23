@@ -39,11 +39,11 @@ in
       ExecStart = pkgs.writeShellScript "ocis-backup-script" ''
         echo "-- Backup start: $(${pkgs.coreutils}/bin/date) -- " >> ${logFile}
 
-        ${pkgs.systemd}/bin/systemctl stop podman-ocis.service
+        ${pkgs.systemd}/bin/systemctl stop docker-ocis.service
 
         ${pkgs.rsync}/bin/rsync -aXvh --delete ${storageDir}/ ${backupDir}/ >> ${logFile} 2>&1
 
-        ${pkgs.systemd}/bin/systemctl start podman-ocis.service
+        ${pkgs.systemd}/bin/systemctl start docker-ocis.service
 
         echo "-- Backup end: $(${pkgs.coreutils}/bin/date) -- " >> ${logFile}
       '';
