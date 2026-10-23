@@ -18,6 +18,7 @@ in
             OCIS_URL = "https://drive.${domain}";
             OCIS_INSECURE = "true";
             OCIS_LOG_LEVEL = "warn";
+            PROXY_TLS = "false";
         };
         volumes = [
             "${configDir}:/etc/ocis"
