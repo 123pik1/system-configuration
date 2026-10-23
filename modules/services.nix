@@ -27,20 +27,7 @@ let
 in
 {
 
-# We flake.nix w sekcji nixpkgs.overlays lub modules w nixosConfigurations:
-# Install the newest version
-nixpkgs.overlays = [
-  (final: prev: {
-    php84 = prev.php84.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ [
-        (prev.fetchpatch {
-          url = "https://github.com/php/php-src/commit/6852befa34b1107da57d26ead79e575ccd73e2a.patch";
-          hash = "sha256-7ceTq4Sg6meILeVfheCJ2xgw0smMliQuH1I49gouXKc=";
-        })
-      ];
-    });
-  })
-];
+
 
     sops.secrets."discord_token" = {};
 
