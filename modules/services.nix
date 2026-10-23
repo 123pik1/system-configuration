@@ -71,6 +71,7 @@ in
     enable = true;
     hostName = "nextcloud.${domain}";
     package = pkgs.nextcloud35;
+    phpPackage = pkgs.php85;
 
     database.createLocally = true;
     configureRedis = true;
