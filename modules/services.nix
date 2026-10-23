@@ -49,7 +49,7 @@ in
         ingress = {
           "ssh.${domain}" = "ssh://localhost:${sshPort}";
           #        "factorio-server-manager.${domain}" = "http://localhost:5865";
-          "nextcloud.${domain}" = "http://localhost:${nextcloudPort}";
+ #         "nextcloud.${domain}" = "http://localhost:${nextcloudPort}";
           #"ami.${domain}" = "http://127.0.0.1:8080";
           "www.${domain}" = "http://127.0.0.1:${wwwPort}";
           #"dashboard.${domain}" = "http://127.0.0.1:${dashboardPort}";
