@@ -7,6 +7,14 @@ let
     logFile = "${dataDir}/log.log";
 in
 {
+
+    virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+    };
+
+
     virtualisation.oci-containers.containers.ocis = {
         image = "docker.io/owncloud/ocis:latest";
         autoStart = true;
