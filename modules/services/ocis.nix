@@ -1,4 +1,4 @@
-{config, pkgs, drivePort, dataDir, backupDir, domain, ... } :
+{ pkgs, drivePort, dataDir, backupDir, domain, ... } :
 let
     
     portStr = drivePort toString;

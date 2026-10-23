@@ -14,6 +14,10 @@ let
   cloudDataDir = "/mnt/1TB_storage_SSD/nextcloud";
   cloudBackupDir = "mnt/2TB_storage_HDD/nextcloud-backup";
 
+cloudDriveDataDir = "/mnt/1TB_storage_SSD/ocis";
+cloudDriveBackupDir =  "mnt/2TB_storage_HDD/ocis-backup";
+
+
   # Ports
   whiteboardPort = "7777";
   dashboardPort = "7575";
@@ -23,11 +27,21 @@ let
   blogBackendPort = "9999";
   blogFrontendPot = "9998";
   gitPort = "8991";
+  drivePort = "9200";
   
 in
 {
 
-
+    imports = [
+    ( import "./services/ocis.nix" {
+        inherit pkgs;
+        drivePort = drivePort;
+        dataDir = cloudDriveDataDir;
+        backupDir = cloudDriveBackupDir;
+        domain = domain;
+        })
+    ];
+    
 
     sops.secrets."discord_token" = {};
 
@@ -84,6 +98,8 @@ in
 
     maxUploadSize = "300G";
   };
+
+    
 
   systemd.services.yt-dlp-download = {
     description = "Automatic download from YT";
