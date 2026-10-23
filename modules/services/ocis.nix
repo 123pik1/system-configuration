@@ -8,6 +8,8 @@ let
 in
 {
 
+virtualisation.oci-containers.backend = "podman";
+
     virtualisation.podman = {
     enable = true;
     dockerCompat = true;
