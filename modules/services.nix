@@ -34,8 +34,8 @@ nixpkgs.overlays = [
     php84 = prev.php84.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or [ ]) ++ [
         (prev.fetchpatch {
-          url = "https://github.com/php/php-src/commit/<HASH_COMMITA_Z_LATKA>.patch";
-          hash = "sha256-...";
+          url = "https://github.com/php/php-src/commit/6852befa34b1107da57d26ead79e575ccd73e2a.patch";
+          hash = "sha256-7ceTq4Sg6meILeVfheCJ2xgw0smMliQuH1I49gouXKc=";
         })
       ];
     });
