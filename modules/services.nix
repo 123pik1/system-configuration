@@ -33,7 +33,7 @@ in
 {
 
     imports = [
-    ( import "./services/ocis.nix" {
+    ( import ./services/ocis.nix {
         inherit pkgs;
         drivePort = drivePort;
         dataDir = cloudDriveDataDir;
