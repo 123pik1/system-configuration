@@ -1,7 +1,6 @@
 { pkgs, drivePort, dataDir, backupDir, domain, ... } :
 let
     
-    portStr = drivePort toString;
 
     configDir = "${dataDir}/config";
     storageDir = "${dataDir}/storage";
@@ -22,7 +21,7 @@ in
             "${storageDir}:/var/lib/ocis"
         ];
         ports = [
-            "127.0.0.1:${portStr}:9200"
+            "127.0.0.1:${drivePort}:9200"
         ];
     };
 
