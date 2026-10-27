@@ -19,7 +19,7 @@ in
             OCIS_INSECURE = "true";
             OCIS_LOG_LEVEL = "warn";
             PROXY_TLS = "false";
-            PROXY_ENABLE_BASIC_AUTH=true;
+            PROXY_ENABLE_BASIC_AUTH="true";
         };
         volumes = [
             "${configDir}:/etc/ocis"
