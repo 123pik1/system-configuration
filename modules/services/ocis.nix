@@ -51,5 +51,6 @@ in
     };
   };
 
+  environment.systemPackages = [pkgs.rclone];
 
 }
