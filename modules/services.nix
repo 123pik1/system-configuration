@@ -10,9 +10,6 @@ let
     "https://youtube.com/playlist?list=PL_6uqpqcFlzM5I9OywWPqc0sTafV3zCBO&si=7J98YbjYPp6bDEp4"
     "https://youtube.com/playlist?list=PL_6uqpqcFlzMCJ4kadi22x-2h4dMtzvRn&si=eTzXHrhb8sbS0Pxo"
   ];
-  cloudLogFile = "/home/pik/nextcloud.logs";
-  cloudDataDir = "/mnt/1TB_storage_SSD/nextcloud";
-  cloudBackupDir = "mnt/2TB_storage_HDD/nextcloud-backup";
 
 cloudDriveDataDir = "/mnt/1TB_storage_SSD/ocis";
 cloudDriveBackupDir =  "mnt/2TB_storage_HDD/ocis-backup";
@@ -23,7 +20,6 @@ cloudDriveBackupDir =  "mnt/2TB_storage_HDD/ocis-backup";
   dashboardPort = "7575";
   wwwPort = "2137";
   sshPort = "22";
-  nextcloudPort = "80";
   blogBackendPort = "9999";
   blogFrontendPot = "9998";
   gitPort = "8991";
@@ -63,7 +59,6 @@ in
         ingress = {
           "ssh.${domain}" = "ssh://localhost:${sshPort}";
           #        "factorio-server-manager.${domain}" = "http://localhost:5865";
- #         "nextcloud.${domain}" = "http://localhost:${nextcloudPort}";
           #"ami.${domain}" = "http://127.0.0.1:8080";
           "www.${domain}" = "http://127.0.0.1:${wwwPort}";
           # instead of nextcloud
@@ -83,23 +78,6 @@ in
 
   };
 
-  services.nextcloud = {
-    enable = true;
-    hostName = "nextcloud.${domain}";
-    package = pkgs.nextcloud35;
-    phpPackage = pkgs.php85;
-
-    database.createLocally = true;
-    configureRedis = true;
-
-    datadir = "${cloudDataDir}";
-
-    config = {
-      dbtype = "pgsql";
-    };
-
-    maxUploadSize = "300G";
-  };
 
     
 
@@ -140,19 +118,6 @@ in
   };
 
   systemd.services = {
-    nextcloudBackup = {
-      description = "Automatic backup for nextcloud";
-
-      serviceConfig = {
-        Type = "oneshot";
-        User = "nextcloud";
-        ExecStart = ''
-          nextcloud-occ maintenance:mode --on
-          echo "-- Backup start: ''$(date) -- " >> ${cloudLogFile}
-          rsync -avh ${cloudDataDir}/ ${cloudBackupDir}/ >> ${cloudLogFile} 2>&1
-          echo "-- Backup end: ''$(date) -- " >> ${cloudLogFile}
-        '';
-      };
     };
     /*myf-bot = {
       description = "Uploading discord bot";
@@ -169,7 +134,6 @@ in
       };
       
     };*/
-  };
 
   systemd.timers.nextcloudBackup = {
     wantedBy = [ "timers.target" ];

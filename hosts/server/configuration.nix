@@ -26,6 +26,8 @@
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     };
 
+    zramSwap.enable = true;
+
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
