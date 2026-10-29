@@ -26,6 +26,16 @@
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     };
 
+    boot.kernel.sysctl = { 
+        # If I/O process longer than 120 s -> make Panic
+        "kernel.hung_task_panic" =1;
+        # After panic restart after 10 seconds
+        "kernel.panic" = 10;
+        # Restart if loop in  processor disruptions
+        "kernel.panic_on_oops" = 1;
+    };
+    
+
     zramSwap.enable = true;
 
   # Bootloader.
