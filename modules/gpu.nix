@@ -12,18 +12,17 @@
 
     modesetting.enable = true;
     nvidiaSettings = true;
-    
 
     prime = {
-      # Włączamy tryb Sync. Zapewnia on bezproblemowe działanie wyjść 
+      # Włączamy tryb Sync. Zapewnia on bezproblemowe działanie wyjść
       # obrazu (HDMI, DP), bo NVIDIA cały czas w pełni kontroluje ekran.
-      sync.enable = true; 
-      
+      sync.enable = true;
+
       # Adresy sprzętowe wyciągnięte z komendy 'ls -l /sys/class/drm/'
       amdgpuBusId = "PCI:5:0:0";
       nvidiaBusId = "PCI:1:0:0";
     };
 
-    };
+  };
   hardware.graphics.enable32Bit = true;
 }

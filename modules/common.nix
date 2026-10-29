@@ -67,9 +67,10 @@ let
 in
 {
 
-
   environment.systemPackages = with pkgs; [
     antigravity-cli
+
+    nixfmt
 
     texstudio
 
@@ -131,13 +132,11 @@ in
     imv
     swayimg
 
-
     # make
     gnumake
 
     # music
     cmus
-
 
     # system tellers
     btop
@@ -163,8 +162,6 @@ in
     virt-manager
 
     tcpreplay
-    
-
 
     lazydocker
 
@@ -174,8 +171,6 @@ in
     # micro jump plugin dependiences
     fzf
     ctags
-
-
 
     #############
     # languages #
@@ -192,7 +187,6 @@ in
     python313Packages.pydbus
     python313Packages.black
     python3Packages.requests
-
 
     # processing json inputs
     jq
@@ -297,42 +291,44 @@ in
   programs.dconf.enable = true;
 
   services.printing = {
-  enable = true;
-  drivers = [pkgs.cups-filters];
+    enable = true;
+    drivers = [ pkgs.cups-filters ];
   };
-services.avahi = {
+  services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-};
-hardware.sane = {
-enable = true;
-extraBackends = [pkgs.sane-airscan];
-};
-users.users.pik.extraGroups = ["scanner" "lp"];
+  };
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+  };
+  users.users.pik.extraGroups = [
+    "scanner"
+    "lp"
+  ];
 
-programs.direnv = {
-enable = true;
-nix-direnv.enable = true;
-};
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
+  # Wyłącz PulseAudio (wchodzi w konflikt z PipeWire)
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
 
-# Wyłącz PulseAudio (wchodzi w konflikt z PipeWire)
-services.pulseaudio.enable = false;
-security.rtkit.enable = true;
+  # Włącz PipeWire z obsługą protokołu Pulse
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 
-# Włącz PipeWire z obsługą protokołu Pulse
-services.pipewire = {
-  enable = true;
-  alsa.enable = true;
-  alsa.support32Bit = true;
-  pulse.enable = true;
-};
+  # Włącz Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true; # automatyczne uruchamianie adaptera przy starcie
 
-# Włącz Bluetooth
-hardware.bluetooth.enable = true;
-hardware.bluetooth.powerOnBoot = true; # automatyczne uruchamianie adaptera przy starcie
-
-# Włącz Blueman (bardzo wygodny interfejs graficzny dla Waylanda/Hyprlanda)
-services.blueman.enable = true;
+  # Włącz Blueman (bardzo wygodny interfejs graficzny dla Waylanda/Hyprlanda)
+  services.blueman.enable = true;
 }

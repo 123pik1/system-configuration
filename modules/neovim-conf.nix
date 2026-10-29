@@ -1,4 +1,4 @@
-{  ... }:
+{ ... }:
 {
   programs.nixvim = {
     enable = true;
@@ -32,12 +32,12 @@
     };
 
     diagnostic.settings = {
-        virtualLines.enable = true;
-        virtualText = true;
-        signs = true;
-        underline = true;
-        updateInInsert = true;
-        severity_sort = true;
+      virtualLines.enable = true;
+      virtualText = true;
+      signs = true;
+      underline = true;
+      updateInInsert = true;
+      severity_sort = true;
     };
 
     # 3. Keybinds
@@ -56,8 +56,16 @@
         action = "<Esc><cmd>w<CR>a";
       }
 
-      { mode = "n"; key = "<C-q>"; action = "<cmd>q!<CR>"; }
-      { mode = "i"; key = "<C-q>"; action = "<Esc><cmd>q!<CR>"; }
+      {
+        mode = "n";
+        key = "<C-q>";
+        action = "<cmd>q!<CR>";
+      }
+      {
+        mode = "i";
+        key = "<C-q>";
+        action = "<Esc><cmd>q!<CR>";
+      }
 
       # NvimTree
       {
@@ -93,9 +101,20 @@
     autoCmd = [
       {
         event = "BufWritePre"; # Wyzwól tuż przed zapisaniem pliku
-        pattern = [ 
-          "*.py" "*.nix" "*.sh" "*.lua" "*.cpp" "*.c" 
-          "*.vhdl" "*.html" "*.ts" "*.js" "*.java" "*.svelte" "*.vhd"
+        pattern = [
+          "*.py"
+          "*.nix"
+          "*.sh"
+          "*.lua"
+          "*.cpp"
+          "*.c"
+          "*.vhdl"
+          "*.html"
+          "*.ts"
+          "*.js"
+          "*.java"
+          "*.svelte"
+          "*.vhd"
           "*.rs"
         ];
         callback = {
@@ -114,14 +133,18 @@
       markdown-preview = {
         enable = true;
         settings = {
-            auto_start =0;
-            theme = "dark";
+          auto_start = 0;
+          theme = "dark";
         };
       };
 
       treesitter = {
         enable = true;
-        settings.ensure_installed = ["markdown" "markdown_inline" "mermaid"];
+        settings.ensure_installed = [
+          "markdown"
+          "markdown_inline"
+          "mermaid"
+        ];
       };
 
       lualine = {
@@ -132,46 +155,47 @@
       nvim-tree = {
         enable = true;
         settings = {
-            filters.dotfiles = false;
-            git.enable = true;
-    
-            on_attach = {
-            __raw = ''
-            function(bufnr)
-                local api = require('nvim-tree.api')
-            
-          
-                api.config.mappings.default_on_attach(bufnr)
-            
-         
-                vim.keymap.set('n', '<CR>', api.node.open.tab, { buffer = bufnr, desc = "Otworz w nowym Tabie" })
-            end
-            '';
-        };
+          filters.dotfiles = false;
+          git.enable = true;
 
-   };
-      
+          on_attach = {
+            __raw = ''
+              function(bufnr)
+                  local api = require('nvim-tree.api')
+
+
+                  api.config.mappings.default_on_attach(bufnr)
+
+
+                  vim.keymap.set('n', '<CR>', api.node.open.tab, { buffer = bufnr, desc = "Otworz w nowym Tabie" })
+              end
+            '';
+          };
+
+        };
 
       };
 
       comment.enable = true;
       nvim-autopairs.enable = true;
 
+      # lsp for rust
+      rustaceanvim = {
+        enable = true;
+      };
 
-        # lsp for rust
-        rustaceanvim = {
-            enable = true;
-        };
-
-        crates = {
-            enable = true;
-        };
+      crates = {
+        enable = true;
+      };
 
       # 5. LSP
       lsp = {
         enable = true;
         servers = {
-          nixd.enable = true;
+          nixd = {
+            enable = true;
+            settings.formatting.command = [ "nixfmt" ];
+          };
           pyright.enable = true;
           clangd.enable = true;
           bashls.enable = true;
@@ -179,27 +203,25 @@
           cssls.enable = true;
           ts_ls.enable = true;
           vhdl_ls.enable = true;
-          
+
         };
-
-
 
         # format keybind
         keymaps = {
-            diagnostic = {
-                "<leader>e" = "open_float";
-                "[d" = "goto_prev";    
-                "]d" = "goto_next";
-            };
+          diagnostic = {
+            "<leader>e" = "open_float";
+            "[d" = "goto_prev";
+            "]d" = "goto_next";
+          };
 
-            lspBuf = {
-                "<C-f>" = "format";
-                "K" = "hover";             
-                "gd" = "definition";       
-                # Space + a - code action
-                "<leader>ca" = "code_action";
-                "<leader>rn" = "rename";
-            };
+          lspBuf = {
+            "<C-f>" = "format";
+            "K" = "hover";
+            "gd" = "definition";
+            # Space + a - code action
+            "<leader>ca" = "code_action";
+            "<leader>rn" = "rename";
+          };
         };
       };
 

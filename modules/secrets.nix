@@ -1,7 +1,7 @@
-{ config, pkgs, ...}: 
+{ config, pkgs, ... }:
 {
-    sops = {
-        defaultSopsFile = ./../secrets/passwords.yaml;
-        defaultSopsFormat = "yaml";
-    };
+  sops = {
+    defaultSopsFile = ./../secrets/passwords.yaml;
+    defaultSopsFormat = "yaml";
+  };
 }

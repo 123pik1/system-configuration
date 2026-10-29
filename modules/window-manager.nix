@@ -5,7 +5,6 @@
     xwayland.enable = true;
   };
 
-
   services.displayManager.sddm = {
     enable = false;
     wayland.enable = false;
@@ -20,23 +19,19 @@
     config.common.default = "*";
   };
 
-
-    services.greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-            user = "greeter";
-          };
-        }
-        ;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        user = "greeter";
+      };
     };
-
+  };
 
   # systemd.defaultUnit = pkgs.lib.mkForce "multi-user.target";
 
- #services.desktopManager.plasma6.enable = true;
-
+  #services.desktopManager.plasma6.enable = true;
 
   # for auth in file manager to mount disks
   security.polkit.enable = true;
@@ -102,13 +97,13 @@
     kdePackages.qt6ct
 
     (writeShellScriptBin "fancy-hyprland" ''
-              hyprctl --batch "\
-                  keyword animations:enabled 1;\
-                  keyword decoration:drop_shadow 1;\
-                  keyword decoration:blur:enabled 1;\
-                  keyword general:gaps_in 5;\
-                  keyword general:gaps_out 10;\
-                  keyword decoration:rounding 10"
+      hyprctl --batch "\
+          keyword animations:enabled 1;\
+          keyword decoration:drop_shadow 1;\
+          keyword decoration:blur:enabled 1;\
+          keyword general:gaps_in 5;\
+          keyword general:gaps_out 10;\
+          keyword decoration:rounding 10"
 
 
     '')

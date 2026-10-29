@@ -3,11 +3,11 @@ let
   blog_db_user = "blog_user";
 in
 {
-    sops.secrets."blog_db_password" = {
-    
-    };
+  sops.secrets."blog_db_password" = {
 
-sops.templates."blog-init.sql" = {
+  };
+
+  sops.templates."blog-init.sql" = {
     content = ''
       DO $$
       BEGIN

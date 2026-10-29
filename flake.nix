@@ -14,13 +14,13 @@
       url = "github:nix-community/nixvim";
     };
 
-    rust-overlay ={
-        url = "github:oxalica/rust-overlay";  
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
     };
 
     sops-nix = {
-    url = "github:Mic92/sops-nix";
-    inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -36,14 +36,17 @@
       ...
     }@inputs:
     let
-        system = "x86_64-linux";
-        
-        overlays = [ (import rust-overlay) inputs.nur.overlays.default];
+      system = "x86_64-linux";
 
-        pkgs = import nixpkgs {
-            inherit system overlays;
-            config.allowUnfree = true;
-        };
+      overlays = [
+        (import rust-overlay)
+        inputs.nur.overlays.default
+      ];
+
+      pkgs = import nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
     in
     {
       nixosConfigurations = {
@@ -68,7 +71,7 @@
           specialArgs = {
             inherit inputs;
             useHomeManager = false;
-            flakePath  = "/home/pik/system-configuration#server"; 
+            flakePath = "/home/pik/system-configuration#server";
           };
           modules = [
             { nixpkgs.overlays = [ inputs.nur.overlays.default ]; }
@@ -81,22 +84,21 @@
           ];
         };
 
-
       };
       devShells.${system} = {
-        default = import ./shells/tauri.nix {inherit pkgs;};
+        default = import ./shells/tauri.nix { inherit pkgs; };
         nids = import ./shells/ml-nids.nix { inherit pkgs; };
-        java = import ./shells/java.nix {inherit pkgs;};
-        angular = import ./shells/angular.nix {inherit pkgs; };
-        svelte = import ./shells/svelte.nix {inherit pkgs;};
-        latex = import ./shells/latex.nix {inherit pkgs;};
-        android = import ./shells/android.nix {inherit pkgs;};
-        rust = import ./shells/rust.nix {inherit pkgs;};
-        cpp = import ./shells/cpp.nix {inherit pkgs;};
-        tauri = import ./shells/tauri.nix {inherit pkgs;};
-        rust96 = import ./shells/rust-1.96.nix {inherit pkgs;};
-        mc = import ./shells/mc.nix {inherit pkgs;};
-        };
+        java = import ./shells/java.nix { inherit pkgs; };
+        angular = import ./shells/angular.nix { inherit pkgs; };
+        svelte = import ./shells/svelte.nix { inherit pkgs; };
+        latex = import ./shells/latex.nix { inherit pkgs; };
+        android = import ./shells/android.nix { inherit pkgs; };
+        rust = import ./shells/rust.nix { inherit pkgs; };
+        cpp = import ./shells/cpp.nix { inherit pkgs; };
+        tauri = import ./shells/tauri.nix { inherit pkgs; };
+        rust96 = import ./shells/rust-1.96.nix { inherit pkgs; };
+        mc = import ./shells/mc.nix { inherit pkgs; };
+      };
     };
 
 }

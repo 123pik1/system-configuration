@@ -1,4 +1,4 @@
-{config, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   tunnel_1_id = "b06e963b-94ca-41c5-8b6e-1709b6125385";
   credentialsDir = "/var/lib/cloudflare-config";
@@ -11,9 +11,8 @@ let
     "https://youtube.com/playlist?list=PL_6uqpqcFlzMCJ4kadi22x-2h4dMtzvRn&si=eTzXHrhb8sbS0Pxo"
   ];
 
-cloudDriveDataDir = "/mnt/1TB_storage_SSD/ocis";
-cloudDriveBackupDir =  "mnt/2TB_storage_HDD/ocis-backup";
-
+  cloudDriveDataDir = "/mnt/1TB_storage_SSD/ocis";
+  cloudDriveBackupDir = "mnt/2TB_storage_HDD/ocis-backup";
 
   # Ports
   whiteboardPort = "7777";
@@ -24,31 +23,29 @@ cloudDriveBackupDir =  "mnt/2TB_storage_HDD/ocis-backup";
   blogFrontendPot = "9998";
   gitPort = "8991";
   drivePort = "9200";
-  
+
 in
 {
 
-    imports = [
-    ( import ./services/ocis.nix {
-        inherit pkgs;
-        drivePort = drivePort;
-        dataDir = cloudDriveDataDir;
-        backupDir = cloudDriveBackupDir;
-        domain = domain;
-        })
-    ];
-    
+  imports = [
+    (import ./services/ocis.nix {
+      inherit pkgs;
+      drivePort = drivePort;
+      dataDir = cloudDriveDataDir;
+      backupDir = cloudDriveBackupDir;
+      domain = domain;
+    })
+  ];
 
-    sops.secrets."discord_token" = {};
+  sops.secrets."discord_token" = { };
 
-    sops.templates."discord_bot.env".content = ''
-        DISCORD_TOKEN=${config.sops.placeholder.discord_token}
-    '';
+  sops.templates."discord_bot.env".content = ''
+    DISCORD_TOKEN=${config.sops.placeholder.discord_token}
+  '';
 
-    sops.templates."blog_backend.env".content = ''
-        SPRING_DATASOURCE_PASSWORD=${config.sops.placeholder.blog_db_password}
-    '';
-
+  sops.templates."blog_backend.env".content = ''
+    SPRING_DATASOURCE_PASSWORD=${config.sops.placeholder.blog_db_password}
+  '';
 
   services.cloudflared = {
     enable = true;
@@ -77,9 +74,6 @@ in
     };
 
   };
-
-
-    
 
   systemd.services.yt-dlp-download = {
     description = "Automatic download from YT";
@@ -118,22 +112,24 @@ in
   };
 
   systemd.services = {
-    };
-    /*myf-bot = {
+  };
+  /*
+    myf-bot = {
       description = "Uploading discord bot";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.jre ];
       script = "java -jar /home/pik/bot/myfBot/myfBot.jar";
-      
+
       serviceConfig = {
         WorkingDirectory = "/home/pik/bot";
         Restart = "always";
         User = "pik";
         EnvironmentFile = config.sops.templates."discord_bot.env".path;
       };
-      
-    };*/
+
+    };
+  */
 
   systemd.timers.nextcloudBackup = {
     wantedBy = [ "timers.target" ];
@@ -169,8 +165,6 @@ in
     enable = true;
   };
 
-
-
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
@@ -185,17 +179,17 @@ in
         ];
       };
 
-    "blog-backend" = {
+      "blog-backend" = {
         image = "moj-blog:backendv1";
         extraOptions = [
           "--network=host"
         ];
-        
+
         # Wczytujemy bezpiecznie hasło do bazy
-        environmentFiles = [ 
-          config.sops.templates."blog_backend.env".path 
+        environmentFiles = [
+          config.sops.templates."blog_backend.env".path
         ];
-        
+
         environment = {
           SPRING_DATASOURCE_URL = "jdbc:postgresql://127.0.0.1:5432/blog_db";
           SPRING_DATASOURCE_USERNAME = "blog_user";

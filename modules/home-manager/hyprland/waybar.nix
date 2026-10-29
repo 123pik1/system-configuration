@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
 
-home.packages = with pkgs; [
-  nerd-fonts.jetbrains-mono
-  font-awesome
-];
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    font-awesome
+  ];
 
-programs.wlogout = {
+  programs.wlogout = {
     enable = true;
 
     layout = [
@@ -15,43 +15,41 @@ programs.wlogout = {
         action = "hyprlock"; # Make sure you have hyprlock (or swaylock) installed
         text = "Lock";
         keybind = "l";
-    }
-              {
-                label = "hibernate";
-                action = "systemctl hibernate";
-                text = "Hibernate";
-                keybind = "h";
-              }
-              {
-                label = "logout";
-                action = "hyprctl dispatch exit"; # The specific command to kill Hyprland
-                text = "Logout";
-                keybind = "e";
-              }
-              {
-                label = "shutdown";
-                action = "systemctl poweroff";
-                text = "Shutdown";
-                keybind = "s";
-              }
-              {
-                label = "suspend";
-                action = "systemctl suspend";
-                text = "Suspend";
-                keybind = "u";
-              }
-              {
-                label = "reboot";
-                action = "systemctl reboot";
-                text = "Reboot";
-                keybind = "r";
-              }
+      }
+      {
+        label = "hibernate";
+        action = "systemctl hibernate";
+        text = "Hibernate";
+        keybind = "h";
+      }
+      {
+        label = "logout";
+        action = "hyprctl dispatch exit"; # The specific command to kill Hyprland
+        text = "Logout";
+        keybind = "e";
+      }
+      {
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Shutdown";
+        keybind = "s";
+      }
+      {
+        label = "suspend";
+        action = "systemctl suspend";
+        text = "Suspend";
+        keybind = "u";
+      }
+      {
+        label = "reboot";
+        action = "systemctl reboot";
+        text = "Reboot";
+        keybind = "r";
+      }
     ];
-};
+  };
 
-
-
- programs.waybar = {
+  programs.waybar = {
     enable = true;
 
     settings = {
@@ -62,9 +60,21 @@ programs.wlogout = {
         spacing = 4;
 
         # Where modules go
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "custom/gamemode" "pulseaudio" "network" "cpu" "memory" "battery" "tray" "custom/power" ];
+        modules-right = [
+          "custom/gamemode"
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "battery"
+          "tray"
+          "custom/power"
+        ];
 
         # Module Configurations
         "hyprland/workspaces" = {
@@ -97,7 +107,13 @@ programs.wlogout = {
             critical = 15;
           };
           format = "{capacity}% {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
         "network" = {
@@ -110,8 +126,7 @@ programs.wlogout = {
           on-click-right = "~/.local/bin/wifi-menu";
         };
 
-
-# Actions for bluetooth - connect, send file, etc.
+        # Actions for bluetooth - connect, send file, etc.
         "bluetooth" = {
 
         };
@@ -128,7 +143,11 @@ programs.wlogout = {
             phone = "";
             portable = "";
             car = "";
-            default = ["" "" ""];
+            default = [
+              ""
+              ""
+              ""
+            ];
           };
           on-click = "pavucontrol";
         };
@@ -242,4 +261,3 @@ programs.wlogout = {
     '';
   };
 }
-

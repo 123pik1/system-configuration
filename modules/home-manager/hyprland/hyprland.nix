@@ -12,7 +12,6 @@
 
     configType = "hyprlang";
 
-
     plugins = [
     ];
 
@@ -21,7 +20,7 @@
         "QT_QPA_PLATFORMTHEME,qt6ct"
         #      "QT_STYLE_OVERRIDE,kvantum"
 
-"XCURSOR_THEME,breeze_cursors" 
+        "XCURSOR_THEME,breeze_cursors"
         "XCURSOR_SIZE,24"
       ];
 
@@ -46,10 +45,10 @@
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "sleep 2 && ${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &"
         "fancy-hyprland"
- #       "toggle-hyprland-fancy_battery"
-"hyprctl setcursor breeze_cursors 24"
+        #       "toggle-hyprland-fancy_battery"
+        "hyprctl setcursor breeze_cursors 24"
 
-"blueman-applet &"
+        "blueman-applet &"
 
       ];
 
@@ -191,28 +190,28 @@
     '';
 
     "ghostty/config".text = ''
-        # --- Czcionka (Font) ---
-        font-family = "JetBrainsMono Nerd Font"
-        font-size = 11
-        font-style = Medium
+      # --- Czcionka (Font) ---
+      font-family = "JetBrainsMono Nerd Font"
+      font-size = 11
+      font-style = Medium
 
-        # --- Kolorystyka i Motyw (Theme) ---
-        # Możesz wybrać m.in.: catppuccin-mocha, tokyonight, rose-pine, gruvbox-dark
-        # theme = catppuccin-mocha
+      # --- Kolorystyka i Motyw (Theme) ---
+      # Możesz wybrać m.in.: catppuccin-mocha, tokyonight, rose-pine, gruvbox-dark
+      # theme = catppuccin-mocha
 
-        # --- Okno i Przezroczystość (Window Layout) ---
-        background-opacity = 0.85
-        background-blur = true
-    
-        # Usuwa pasek tytułowy (czysty, minimalistyczny wygląd)
-        window-decoration = false
-    
-        # Marginesy wewnątrz terminala (tekst nie dotyka krawędzi)
-        window-padding-x = 12
-        window-padding-y = 12
+      # --- Okno i Przezroczystość (Window Layout) ---
+      background-opacity = 0.85
+      background-blur = true
 
-        # --- Kursor ---
-        cursor-style = block
+      # Usuwa pasek tytułowy (czysty, minimalistyczny wygląd)
+      window-decoration = false
+
+      # Marginesy wewnątrz terminala (tekst nie dotyka krawędzi)
+      window-padding-x = 12
+      window-padding-y = 12
+
+      # --- Kursor ---
+      cursor-style = block
 
     '';
   };

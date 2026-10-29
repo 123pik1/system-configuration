@@ -17,15 +17,15 @@
     ./../../modules/scripts.nix
     ./../../modules/shell.nix
     ./../../modules/secrets.nix
-    ];
+  ];
 
-    sops.age.keyFile = "/home/pik/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/pik/.config/sops/age/keys.txt";
 
-    sops.secrets."eduroam_private_key" = {
-        owner = "pik";
-    };
+  sops.secrets."eduroam_private_key" = {
+    owner = "pik";
+  };
 
-    system.nixos.distroName = "NixOS btw";
+  system.nixos.distroName = "NixOS btw";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -119,6 +119,6 @@
 
   # home-manager.users.pik = ./modules/home-manager/pik-home.nix;
 
-   programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
 }

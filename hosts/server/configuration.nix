@@ -20,23 +20,22 @@
     ./../../modules/services/mc.nix
     ./../../modules/services/rebuild-switch.nix
     ./../../modules/secrets.nix
-    ];
+  ];
 
-    sops = {
-        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-    };
+  sops = {
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
 
-    boot.kernel.sysctl = { 
-        # If I/O process longer than 120 s -> make Panic
-        "kernel.hung_task_panic" =1;
-        # After panic restart after 10 seconds
-        "kernel.panic" = 10;
-        # Restart if loop in  processor disruptions
-        "kernel.panic_on_oops" = 1;
-    };
-    
+  boot.kernel.sysctl = {
+    # If I/O process longer than 120 s -> make Panic
+    "kernel.hung_task_panic" = 1;
+    # After panic restart after 10 seconds
+    "kernel.panic" = 10;
+    # Restart if loop in  processor disruptions
+    "kernel.panic_on_oops" = 1;
+  };
 
-    zramSwap.enable = true;
+  zramSwap.enable = true;
 
   # Bootloader.
   boot.loader.grub.enable = true;

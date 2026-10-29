@@ -1,142 +1,156 @@
-{  lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
-    lspServerString = lib.concatStringsSep "," [
-        "nix=nixd"
-        "python=pyright-langserver --stdio"
-        "c=clangd"
-        "c++=clangd"
-        "sh=bash-language-server start"
-        "lua=lua-language-server"
-        "go=gopls"
-        "zig=zls"
-      ];
+  lspServerString = lib.concatStringsSep "," [
+    "nix=nixd"
+    "python=pyright-langserver --stdio"
+    "c=clangd"
+    "c++=clangd"
+    "sh=bash-language-server start"
+    "lua=lua-language-server"
+    "go=gopls"
+    "zig=zls"
+  ];
 
-  microSettings = pkgs.writeText "settings.json" (builtins.toJSON {
+  microSettings = pkgs.writeText "settings.json" (
+    builtins.toJSON {
 
-    "colorscheme" = "twilight"; #"gruvbox"
+      "colorscheme" = "twilight"; # "gruvbox"
 
-    "cursorline" = true;
-    "scrollbar" = true;
-    "statusline" = true;
-    "diffgutter" = true;
-    "mouse" = true;
-    "clipboard" = "external";
-    "su" = true;
-    "tabsize" = 4;
-    "tabstospaces" = true;
-    "autoclose" = true;
-    "rmtrailingws" = true;
-    "formatonSave" = true;
-    "autofmt" = true;
-    "filemanager.width" = 30;
+      "cursorline" = true;
+      "scrollbar" = true;
+      "statusline" = true;
+      "diffgutter" = true;
+      "mouse" = true;
+      "clipboard" = "external";
+      "su" = true;
+      "tabsize" = 4;
+      "tabstospaces" = true;
+      "autoclose" = true;
+      "rmtrailingws" = true;
+      "formatonSave" = true;
+      "autofmt" = true;
+      "filemanager.width" = 30;
 
+      "lsp.server" = lspServerString;
+      # "lsp.formatOnSave" = false;      # Set to false to let 'autofmt' handle formatting, or true to let LSP do it
+      "lsp.tabcompletion" = true; # Enable LSP autocomplete on Tab
+      "lsp.autocompleteDetails" = true; # Show details (signature) in autocomplete popup
+      # "lsp.ignoreTriggerCharacters" = "completion,signature"; # Less noise
 
-    "lsp.server" = lspServerString;
-    # "lsp.formatOnSave" = false;      # Set to false to let 'autofmt' handle formatting, or true to let LSP do it
-    "lsp.tabcompletion" = true;      # Enable LSP autocomplete on Tab
-    "lsp.autocompleteDetails" = true; # Show details (signature) in autocomplete popup
-        # "lsp.ignoreTriggerCharacters" = "completion,signature"; # Less noise
+      # formatters
+      "ft:nix" = {
+        "formatter" = "nixfmt";
+      };
+      "ft:python" = {
+        "formatter" = "black";
+      };
+      "ft:c" = {
+        "formatter" = "clang-format";
+      };
+      "ft:sh" = {
+        "formatter" = "shfmt -i 4";
+      };
+      "ft:lua" = {
+        "formatter" = "stylua -";
+      };
+      "ft:cpp" = {
+        "formatter" = "clang-format";
+      };
 
-    # formatters
-    "ft:nix" = { "formatter" = "nixfmt"; };
-    "ft:python" = { "formatter" = "black"; };
-    "ft:c" = { "formatter" = "clang-format"; };
-    "ft:sh" = { "formatter" = "shfmt -i 4"; };
-    "ft:lua" = { "formatter" = "stylua -"; };
-    "ft:cpp" = {"formatter" = "clang-format";};
-
-  });
+    }
+  );
 
   # Define keybindings
 
-  microBindings = pkgs.writeText "bindings.json" (builtins.toJSON {
+  microBindings = pkgs.writeText "bindings.json" (
+    builtins.toJSON {
 
-    "Ctrl-p" = "CommandMode";
+      "Ctrl-p" = "CommandMode";
 
-    "Ctrl-P" = "CommandMode";
+      "Ctrl-P" = "CommandMode";
 
-    # File Tree
+      # File Tree
 
-    "Ctrl-b" = "command:filetree";
+      "Ctrl-b" = "command:filetree";
 
-    # --- NEW: Switch Between Open Files (Tabs) ---
+      # --- NEW: Switch Between Open Files (Tabs) ---
 
-    "Alt-Left" = "PreviousTab";
+      "Alt-Left" = "PreviousTab";
 
-    "Alt-Right" = "NextTab";
-    "Ctrl-PageUp" = "PreviousTab"; # Common Linux/VS Code bind
-    "Ctrl-PageDown" = "NextTab"; # Common Linux/VS Code bind
-    # "Alt-f" = "command:fmt";
+      "Alt-Right" = "NextTab";
+      "Ctrl-PageUp" = "PreviousTab"; # Common Linux/VS Code bind
+      "Ctrl-PageDown" = "NextTab"; # Common Linux/VS Code bind
+      # "Alt-f" = "command:fmt";
 
-    # Editor Actions
-    "Ctrl-/" = "lua:comment.comment";
-    "Alt-Up" = "MoveLinesUp";
-    "Alt-Down" = "MoveLinesDown";
-    "Ctrl-Shift-k" = "DeleteLine";
-    "Ctrl-d" = "DuplicateLine";
-    "Ctrl-s" = "Save";
-    "Ctrl-q" = "Quit";
+      # Editor Actions
+      "Ctrl-/" = "lua:comment.comment";
+      "Alt-Up" = "MoveLinesUp";
+      "Alt-Down" = "MoveLinesDown";
+      "Ctrl-Shift-k" = "DeleteLine";
+      "Ctrl-d" = "DuplicateLine";
+      "Ctrl-s" = "Save";
+      "Ctrl-q" = "Quit";
 
-    # opening terminal
-    "F12" = "HSplit,command:term";
-    "F11" = "VSplit,command:term";
+      # opening terminal
+      "F12" = "HSplit,command:term";
+      "F11" = "VSplit,command:term";
 
-    # refreshing markdown view:
-    "F6" = "command:preview";
+      # refreshing markdown view:
+      "F6" = "command:preview";
 
-  });
+    }
+  );
 
-
-
-in {
+in
+{
 
   environment.systemPackages = [
 
     # There add wanted plugins
 
     (pkgs.writeShellScriptBin "micro-install" ''
-    echo "Micro is checking plugins"
-    mkdir -p $HOME/.config/micro/plug
-    rm -rf $HOME/.config/micro/plug/autofmt
+      echo "Micro is checking plugins"
+      mkdir -p $HOME/.config/micro/plug
+      rm -rf $HOME/.config/micro/plug/autofmt
 
-      # 1. Formatter
-      # if [ ! -d "$HOME/.config/micro/plug/autofmt" ]; then
-          # echo "Cloning autofmt..."
-          # ${pkgs.git}/bin/git clone https://github.com/a11ce/micro-autofmt.git $HOME/.config/micro/plug/autofmt
-      # else
-          # echo " - autofmt already installed."
-      # fi
+        # 1. Formatter
+        # if [ ! -d "$HOME/.config/micro/plug/autofmt" ]; then
+            # echo "Cloning autofmt..."
+            # ${pkgs.git}/bin/git clone https://github.com/a11ce/micro-autofmt.git $HOME/.config/micro/plug/autofmt
+        # else
+            # echo " - autofmt already installed."
+        # fi
 
-      # 2. My filetree
-      if [ ! -d "$HOME/.config/micro/plug/filetree" ]; then
-          echo "Cloning fileTree-micro..."
-          # Cloning directly into a folder named 'filetree'
-          ${pkgs.git}/bin/git clone https://github.com/123pik1/fileTree-micro.git $HOME/.config/micro/plug/filetree
+        # 2. My filetree
+        if [ ! -d "$HOME/.config/micro/plug/filetree" ]; then
+            echo "Cloning fileTree-micro..."
+            # Cloning directly into a folder named 'filetree'
+            ${pkgs.git}/bin/git clone https://github.com/123pik1/fileTree-micro.git $HOME/.config/micro/plug/filetree
+        else
+            echo " - filetree already installed."
+        fi
+
+        # 3. Markdown preview
+        if [ ! -d "$HOME/.config/micro/plug/preview" ]; then
+          echo "Cloning markdown preview"
+          ${pkgs.git}/bin/git clone https://github.com/weebi/micro-preview.git $HOME/.config/micro/plug/preview
+
+        else
+                    echo " - markdown preview already installed."
+        fi
+
+        # 4. jump to function plugin
+      if [ ! -d "$HOME/.config/micro/plug/jump" ]; then
+          echo "Cloning jump plugin"
+          ${pkgs.git}/bin/git clone https://github.com/terokarvinen/micro-jump.git $HOME/.config/micro/plug/jump
+
       else
-          echo " - filetree already installed."
+          echo "- jump plugin already installed"
       fi
 
-      # 3. Markdown preview
-      if [ ! -d "$HOME/.config/micro/plug/preview" ]; then
-        echo "Cloning markdown preview"
-        ${pkgs.git}/bin/git clone https://github.com/weebi/micro-preview.git $HOME/.config/micro/plug/preview
 
-      else
-                  echo " - markdown preview already installed."
-      fi
-
-      # 4. jump to function plugin
-    if [ ! -d "$HOME/.config/micro/plug/jump" ]; then
-        echo "Cloning jump plugin"
-        ${pkgs.git}/bin/git clone https://github.com/terokarvinen/micro-jump.git $HOME/.config/micro/plug/jump
-
-    else
-        echo "- jump plugin already installed"
-    fi
-
-
-      exec ${pkgs.micro}/bin/micro -plugin install snippets lsp
+        exec ${pkgs.micro}/bin/micro -plugin install snippets lsp
 
 
     '')
