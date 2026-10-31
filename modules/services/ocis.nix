@@ -20,6 +20,7 @@ in
 
     environment = {
       OCIS_URL = "https://drive.${domain}";
+      STORAGE_USERS_DATA_SERVER_URL = "http://127.0.0.1:${drivePort}/data";
       OCIS_INSECURE = "true";
       OCIS_LOG_LEVEL = "warn";
       PROXY_TLS = "false";
