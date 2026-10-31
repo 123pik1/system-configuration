@@ -11,7 +11,7 @@ let
     "https://youtube.com/playlist?list=PL_6uqpqcFlzMCJ4kadi22x-2h4dMtzvRn&si=eTzXHrhb8sbS0Pxo"
   ];
 
-  cloudDriveDataDir = "/mnt/1TB_storage_SSD/ocis";
+  cloudDriveDataDir = "/mnt/0_5TB_internal_SSD/ocis_data";
   cloudDriveBackupDir = "mnt/2TB_storage_HDD/ocis-backup";
 
   # Ports
