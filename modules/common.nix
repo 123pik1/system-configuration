@@ -72,6 +72,8 @@ in
 
     nixfmt
 
+    google-chrome
+
     texstudio
 
     traceroute
