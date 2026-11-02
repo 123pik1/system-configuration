@@ -70,6 +70,9 @@ in
   environment.systemPackages = with pkgs; [
     antigravity-cli
 
+    typst
+    typship
+
     nixfmt
 
     google-chrome
