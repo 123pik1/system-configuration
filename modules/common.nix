@@ -1,71 +1,11 @@
 { pkgs, ... }:
-let
-  # PWAS
-  dcPWA = pkgs.makeDesktopItem {
-    name = "discord-pwa";
-    desktopName = "Discord (Chromium PWA)";
-    # Use --app to hide the browser UI and --class for your NixOS window rules
-    exec = "${pkgs.chromium}/bin/chromium --app=https://discord.com/app --class=discord-pwa";
-    icon = "discord";
-    terminal = false;
-    categories = [
-      "Network"
-      "Chat"
-    ];
-  };
-
-  nextcloudPWA = pkgs.makeDesktopItem {
-    name = "nextcloud";
-    desktopName = "nextcloud";
-
-    exec = "${pkgs.chromium}/bin/chromium --app=http://nextcloud.123pik1.ovh --enable-features=UseOzonePlatform --ozone-platform-hint=auto";
-    terminal = false;
-    categories = [
-    ];
-  };
-
-  githubPWA = pkgs.makeDesktopItem {
-    name = "github";
-    desktopName = "github";
-
-    exec = "${pkgs.chromium}/bin/chromium --app=https://github.com/dashboard";
-    terminal = false;
-  };
-
-  whiteboardPWA = pkgs.makeDesktopItem {
-    name = "whiteboard";
-    desktopName = "whiteboard";
-
-    exec = "${pkgs.chromium}/bin/chromium --app=http://whiteboard.123pik1.ovh";
-    terminal = false;
-  };
-
-  dockerPWA = pkgs.makeDesktopItem {
-    name = "docker-pwa";
-    desktopName = "docker (PWA)";
-
-    exec = "chromium --app=\"https://hub.docker.com/search\"";
-    terminal = false;
-  };
-
-  enauczaniePWA = pkgs.makeDesktopItem {
-    name = "enauczanie";
-    desktopName = "enauczanie";
-
-    exec = "chromium --app=\"https://enauczanie.pg.edu.pl\"";
-    terminal = false;
-  };
-
-  geminiPWA = pkgs.makeDesktopItem {
-    name = "gemini-pwa";
-    desktopName = "gemini (PWA)";
-
-    exec = "chromium --app=https://gemini.google.com/app";
-    terminal = false;
-  };
-
-in
 {
+
+  imports = [
+    ./tool-sets/pwa-s.nix
+    ./tool-sets/languages.nix
+    ./tool-sets/net-tools.nix
+  ];
 
   nixpkgs.config = {
     problems.handlers = {
@@ -78,8 +18,6 @@ in
 
     typst
     typship
-
-    nixfmt
 
     google-chrome
 
@@ -100,7 +38,6 @@ in
     krita
 
     simple-scan
-    obs-studio
 
     anki
 
@@ -109,7 +46,6 @@ in
     trash-cli
     wineWow64Packages.stable
     winetricks
-    refine
     # Partition management
     kdePackages.partitionmanager
     kdePackages.kpmcore
@@ -132,9 +68,6 @@ in
     #########
     # other #
     #########
-
-    # waydroid++ - does not work
-    # waydroid-script
 
     # md viewer:
     glow
@@ -183,39 +116,6 @@ in
     fzf
     ctags
 
-    #############
-    # languages #
-    #############
-    nixd
-    lua
-    luajit
-
-    ghdl
-    # .vcd show
-    gtkwave
-
-    python3
-    python313Packages.pydbus
-    python313Packages.black
-    python3Packages.requests
-
-    # processing json inputs
-    jq
-
-    # java
-    jdk21
-
-    # C
-    libgcc
-    clang-tools
-    gcc
-    ftxui
-    # for working clang
-    bear
-
-    # EFI
-    gnu-efi
-
     #######
     # fun #
     #######
@@ -236,18 +136,6 @@ in
     kdePackages.konsole
     kitty
     cool-retro-term
-
-    ########
-    # PWAS #
-    ########
-    chromium
-    dcPWA
-    nextcloudPWA
-    githubPWA
-    whiteboardPWA
-    dockerPWA
-    enauczaniePWA
-    geminiPWA
 
   ];
 
@@ -336,10 +224,10 @@ in
     pulse.enable = true;
   };
 
-  # Włącz Bluetooth
+  # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true; # automatyczne uruchamianie adaptera przy starcie
 
-  # Włącz Blueman (bardzo wygodny interfejs graficzny dla Waylanda/Hyprlanda)
+  # Enable Blueman
   services.blueman.enable = true;
 }

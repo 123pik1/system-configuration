@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  # 1. Włączenie przekazywania pakietów IP (Routing)
+  # 1. Enabling ip routing
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
   };
 
-  # 2. Konfiguracja interfejsów sieciowych
+  # 2. Configuration of internal network interface
   networking = {
     interfaces.enp3s0.ipv4.addresses = [
       {
@@ -15,7 +15,7 @@
       }
     ];
 
-    # 3. Konfiguracja NAT (Udostępnianie internetu z enp2s0 do enp3s0)
+    # 3. NAT configuration
     nat = {
       enable = true;
       internalInterfaces = [ "enp3s0" ];
@@ -24,29 +24,31 @@
       extraCommands = "iptables -t nat -A POSTROUTING -o enp2s0 -j MASQUERADE";
     };
 
-    # 4. Firewall - otwarcie portów dla DHCP i DNS dla laptopa
+    # 4. Firewall - Open DHCP and DNS for internal network
     firewall = {
       enable = true;
 
       allowedUDPPorts = [ 5864 ];
       checkReversePath = "loose";
 
+      # We trust these interfaces - enp3s0 is not connected to internet directly
       trustedInterfaces = [
         "enp3s0"
         "lo"
         "docker0"
         "tailscale0"
-      ]; # Ufamy urządzeniom na porcie 2 oraz na loopbacku
+      ];
     };
   };
 
-  # 5. Serwer DHCP (dnsmasq), aby laptop dostał IP automatycznie
+  # 5. Server DHCP (dnsmasq), anything connected to enp3s0 should get automatic address
   services.dnsmasq = {
     enable = true;
     settings = {
       interface = "enp3s0";
       dhcp-range = "192.168.100.10,192.168.100.50,24h";
-      # Opcja 3 to brama domyślna (gateway), opcja 6 to DNS
+      # 3 - default gateway
+      # 6 - default DNS
       dhcp-option = [
         "3,192.168.100.1"
         "6,8.8.8.8"
