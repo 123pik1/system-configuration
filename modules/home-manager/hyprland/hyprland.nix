@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./waybar.nix
@@ -14,151 +14,116 @@
     plugins = [
     ];
 
-    settings = {
-      env = [
-        "QT_QPA_PLATFORMTHEME,qt6ct"
+    extraConfig = ''
+      -- Variables
+      local mod = "SUPER"
+      local terminal = "ghostty"
+      local menu = "wofi --show drun --allow-images"
 
-        "XCURSOR_THEME,breeze_cursors"
-        "XCURSOR_SIZE,24"
-      ];
+      -- Environment Variables
+      hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+      hl.env("XCURSOR_THEME", "breeze_cursors")
+      hl.env("XCURSOR_SIZE", "24")
 
-      #Monitor
-      monitor = ",prefered,auto,1";
+      -- Monitor
+      hl.monitor({
+        output = "",
+        mode = "preferred",
+        position = "auto",
+        scale = 1,
+      })
 
-      #Variables
-      "$mod" = "SUPER";
-      "$terminal" = "ghostty";
-      "$menu" = "wofi --show drun --allow-images";
+      -- Settings
+      hl.config({
+        general = {
+          gaps_in = 5,
+          gaps_out = 0,
+          allow_tearing = true,
+        },
+        input = {
+          kb_layout = "pl",
+          follow_mouse = 1,
+          touchpad = {
+            natural_scroll = true,
+          },
+        },
+      })
 
-      # startup programs
-      exec-once = [
-        "waybar &"
-        "mako &"
-        # wallpaper
-        "awww-daemon"
-        "random-wallpaper"
-        # disk mounting
-        "udiskie &"
+      -- Startup programs
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("waybar")
+        hl.exec_cmd("mako")
+        hl.exec_cmd("awww-daemon")
+        hl.exec_cmd("random-wallpaper")
+        hl.exec_cmd("udiskie")
+        hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+        hl.exec_cmd("sleep 2 && ${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1")
+        hl.exec_cmd("fancy-hyprland")
+        hl.exec_cmd("hyprctl setcursor breeze_cursors 24")
+        hl.exec_cmd("blueman-applet")
+      end)
 
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "sleep 2 && ${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &"
-        "fancy-hyprland"
-        #       "toggle-hyprland-fancy_battery"
-        "hyprctl setcursor breeze_cursors 24"
+      -- Key bindings
+      hl.bind(mod .. " + T", hl.dsp.exec_cmd(terminal))
+      hl.bind("ALT + F4", hl.dsp.window.close())
+      hl.bind(mod .. " + C", hl.dsp.window.close())
+      hl.bind(mod .. " + M", hl.dsp.exit())
+      hl.bind(mod .. " + Space", hl.dsp.exec_cmd(menu))
+      hl.bind(mod .. " + E", hl.dsp.exec_cmd("rofimoji --action copy"))
+      hl.bind(mod .. " + F1", hl.dsp.exec_cmd("firefox"))
+      hl.bind(mod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
-        "blueman-applet &"
+      -- Move to workspace
+      hl.bind("CTRL + SHIFT + period", hl.dsp.window.move({ workspace = "+1" }))
+      hl.bind("CTRL + SHIFT + comma", hl.dsp.window.move({ workspace = "-1" }))
 
-      ];
+      -- Track/music/video control
+      hl.bind("ALT + P", hl.dsp.exec_cmd("playerctl play-pause"))
+      hl.bind("ALT + RIGHT", hl.dsp.exec_cmd("playerctl next"))
+      hl.bind("ALT + LEFT", hl.dsp.exec_cmd("playerctl previous"))
 
-      input = {
-        kb_layout = "pl";
+      -- PrintScreen
+      hl.bind("Print", hl.dsp.exec_cmd("screenshot-area"))
 
-        # natural_scroll = false;
-        follow_mouse = 1;
-        touchpad = {
-          natural_scroll = true;
-        };
-      };
+      -- Focus monitors
+      hl.bind(mod .. " + left", hl.dsp.focus({ direction = "l" }))
+      hl.bind(mod .. " + right", hl.dsp.focus({ direction = "r" }))
 
-      # look
-      general = {
-        gaps_in = 5;
-        gaps_out = 0;
-        allow_tearing = true;
-      };
+      -- Workspaces 1-10
+      for i = 1, 10 do
+        local key = tostring(i % 10)
+        local ws = tostring(i)
+        hl.bind(mod .. " + " .. key, function()
+          hl.dispatch(hl.dsp.focus({ workspace = ws, on_current_monitor = true }))
+        end)
+        hl.bind(mod .. " + SHIFT + " .. key, function()
+          hl.dispatch(hl.dsp.window.move({ workspace = ws }))
+        end)
+      end
 
-      # bindings
-      bind = [
-        "$mod, T, exec, $terminal"
-        "ALT, F4, killactive"
-        "$mod, C, killactive"
-        "$mod, M, exit"
-        "$mod, Space, exec, $menu"
-        "$mod, E, exec, rofimoji --action copy"
-        "$mod, F1, exec, firefox"
-        "$mod, L, exec,  hyprlock"
+      -- Plugins & window management
+      hl.bind(mod .. " + Tab", hl.dsp.exec_cmd("hyprctl dispatch overview:toggle"))
+      hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 
-        # move to workspace
-        "CTRL SHIFT, period, movetoworkspace, +1"
-        "CTRL SHIFT, comma, movetoworkspace, -1"
+      -- Mouse bindings
+      hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-        # Control of tracks/music/videos (sound)
-        "ALT, P, exec, playerctl play-pause"
-        "ALT, RIGHT, exec, playerctl next"
-        "ALT, LEFT, exec, playerctl previous"
+      -- Volume and brightness controls (repeating & locked)
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer -i 5"), { repeating = true, locked = true })
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer -d 5"), { repeating = true, locked = true })
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer -t"), { repeating = true, locked = true })
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true, locked = true })
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true, locked = true })
 
-        # Toggle battery view
-        #"$mod, F9,exec, toggle-hyprland-fancy_battery"
-
-        # PrintScreen
-        ", Print, exec, screenshot-area"
-
-        "$mod, left, focusmonitor, l"
-        "$mod, right, focusmonitor, r"
-
-        "$mod, 1,focusworkspaceoncurrentmonitor, 1"
-        "$mod, 2,  focusworkspaceoncurrentmonitor, 2"
-        "$mod, 3, focusworkspaceoncurrentmonitor, 3"
-        "$mod, 4, focusworkspaceoncurrentmonitor, 4"
-        "$mod, 5, focusworkspaceoncurrentmonitor, 5"
-        "$mod, 6,focusworkspaceoncurrentmonitor, 6"
-        "$mod, 7, focusworkspaceoncurrentmonitor, 7"
-        "$mod, 8, focusworkspaceoncurrentmonitor, 8"
-        "$mod, 9,focusworkspaceoncurrentmonitor, 9"
-        "$mod, 0, focusworkspaceoncurrentmonitor, 10"
-
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
-
-        "$mod, Tab,exec, hyprctl dispatch overview:toggle"
-
-        "$mod, V, toggleFloating"
-      ];
-
-      # mouse bindings
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-      ];
-
-      bindel = [
-        # volume up
-        ",XF86AudioRaiseVolume, exec, pamixer -i 5"
-
-        # volume down
-        ",XF86AudioLowerVolume, exec, pamixer -d 5"
-
-        # Mute
-        ",XF86AudioMute, exec, pamixer -t"
-
-        # Increase brightness
-        ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-
-        # decrease brightness
-        ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-
-        # change workspace:
-        "CTRL, period,focusworkspaceoncurrentmonitor, +1"
-        "CTRL, comma,focusworkspaceoncurrentmonitor, -1"
-
-      ];
-
-      plugin = {
-        overview = {
-          panelHeight = 150;
-          exitOnSwitch = true;
-        };
-      };
-
-    };
+      -- Change workspace
+      hl.bind("CTRL + period", function()
+        hl.dispatch(hl.dsp.focus({ workspace = "+1", on_current_monitor = true }))
+      end, { repeating = true, locked = true })
+      hl.bind("CTRL + comma", function()
+        hl.dispatch(hl.dsp.focus({ workspace = "-1", on_current_monitor = true }))
+      end, { repeating = true, locked = true })
+    '';
   };
   # Config for screenshots:
   xdg.configFile = {
