@@ -4,7 +4,6 @@
     ./waybar.nix
     ./viewConf.nix
     ./file-explorer.nix
-    #   ./hyprpaper.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -18,7 +17,6 @@
     settings = {
       env = [
         "QT_QPA_PLATFORMTHEME,qt6ct"
-        #      "QT_STYLE_OVERRIDE,kvantum"
 
         "XCURSOR_THEME,breeze_cursors"
         "XCURSOR_SIZE,24"
@@ -69,13 +67,6 @@
         allow_tearing = true;
       };
 
-      /*
-        windowrule = [
-          "immediate, ^(cs2)$"
-
-          "stayfocused, class:^(steam)$"
-        ];
-      */
       # bindings
       bind = [
         "$mod, T, exec, $terminal"
