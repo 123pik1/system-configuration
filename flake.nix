@@ -22,6 +22,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -33,6 +38,7 @@
       nixvim,
       sops-nix,
       rust-overlay,
+      nix-on-droid,
       ...
     }@inputs:
     let
@@ -45,6 +51,11 @@
 
       pkgs = import nixpkgs {
         inherit system overlays;
+        config.allowUnfree = true;
+      };
+
+      pkgs-arm = import nixpkgs {
+        system = "aarch64-linux";
         config.allowUnfree = true;
       };
     in
@@ -85,6 +96,18 @@
         };
 
       };
+
+      nixOnDroidConfiguration.pixel = nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = pkgs-arm;
+        modules = [
+          ./hosts/pixel-10/configuration.nix
+        ];
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+
       devShells.${system} = {
         default = import ./shells/tauri.nix { inherit pkgs; };
         nids = import ./shells/ml-nids.nix { inherit pkgs; };
