@@ -67,6 +67,12 @@ let
 in
 {
 
+  nixpkgs.config = {
+    problems.handlers = {
+      "gtk+".broken = "warn";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     antigravity-cli
 
