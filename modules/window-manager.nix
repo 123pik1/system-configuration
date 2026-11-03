@@ -1,3 +1,5 @@
+# There is special set of apps which could be not needed installed seperately with other window manager
+# So this set shouldn't be moved
 { pkgs, ... }:
 {
   programs.hyprland = {

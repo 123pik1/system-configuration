@@ -16,7 +16,6 @@ let
 
   # Ports
   whiteboardPort = "7777";
-  dashboardPort = "7575";
   wwwPort = "2137";
   sshPort = "22";
   blogBackendPort = "9999";
@@ -55,14 +54,9 @@ in
         default = "http_status:404";
         ingress = {
           "ssh.${domain}" = "ssh://localhost:${sshPort}";
-          #        "factorio-server-manager.${domain}" = "http://localhost:5865";
-          #"ami.${domain}" = "http://127.0.0.1:8080";
           "www.${domain}" = "http://127.0.0.1:${wwwPort}";
           # instead of nextcloud
           "drive.${domain}" = "http://127.0.0.1:${drivePort}";
-          #"dashboard.${domain}" = "http://127.0.0.1:${dashboardPort}";
-          #"git.${domain}" = "http://127.0.0.1:6969";
-          # "whiteboard.${domain}" = "http://127.0.0.1:${whiteboardPort}";
           "api-blog.${domain}" = "http://127.0.0.1:${blogBackendPort}";
           "blog.${domain}" = "http://127.0.0.1:${blogFrontendPot}";
           "git.${domain}" = "http://127.0.0.1:${gitPort}";
@@ -113,23 +107,6 @@ in
 
   systemd.services = {
   };
-  /*
-    myf-bot = {
-      description = "Uploading discord bot";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.jre ];
-      script = "java -jar /home/pik/bot/myfBot/myfBot.jar";
-
-      serviceConfig = {
-        WorkingDirectory = "/home/pik/bot";
-        Restart = "always";
-        User = "pik";
-        EnvironmentFile = config.sops.templates."discord_bot.env".path;
-      };
-
-    };
-  */
 
   systemd.timers.nextcloudBackup = {
     wantedBy = [ "timers.target" ];

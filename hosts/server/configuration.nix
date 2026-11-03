@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     ./../../modules/network.nix
     ./../../modules/neovim-conf.nix
-    ./../../modules/essentials.nix
+    ./../../modules/server-essentials.nix
     ./../../modules/services.nix
     ./../../modules/games.nix
     ./../../modules/database.nix

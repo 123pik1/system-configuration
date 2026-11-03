@@ -8,7 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./../../modules/common.nix
+    ./../../modules/laptop-essentials.nix
     ./../../modules/micro-conf.nix
     ./../../modules/neovim-conf.nix
     ./../../modules/window-manager.nix
