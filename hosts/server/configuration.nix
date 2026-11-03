@@ -13,7 +13,6 @@
     ./../../modules/essentials.nix
     ./../../modules/services.nix
     ./../../modules/games.nix
-    ./../../modules/dashboard.nix
     ./../../modules/database.nix
     ./../../modules/shell.nix
     ./../../modules/services/gitea.nix
