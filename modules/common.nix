@@ -5,7 +5,6 @@
     ./tool-sets/pwa-s.nix
     ./tool-sets/languages.nix
     ./tool-sets/net-tools.nix
-    ./tool-sets/common-tools.nix
     ./tool-sets/gui-application-set.nix
     ./tool-sets/cli-tools.nix
     ./tool-sets/virtualisation-tools.nix
