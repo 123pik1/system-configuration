@@ -1,18 +1,20 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    ../../modules/tool-sets/cli-tools.nix
-    ../../modules/scripts.nix
-    ../../modules/shell.nix
-    ../../modules/neovim-conf.nix
+  # nix-on-droid używa `environment.packages` zamiast `environment.systemPackages`
+  environment.packages = with pkgs; [
+    # podstawowe narzędzia
+    git
+    curl
+    wget
+    unzip
+    fzf
+    glow
+    lazygit
+    fastfetch
+
+    # edytor
+    neovim
   ];
 
-  programs = {
-    ssh = {
-      enable = true;
-    };
-  };
-
   system.stateVersion = "24.05";
-
 }
