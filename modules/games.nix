@@ -49,31 +49,4 @@ in
     };
   };
 
-  virtualisation.oci-containers.containers.minecraft = {
-    image = "itzg/minecraft-server";
-    ports = [ "5002:25565" ];
-    environment = {
-      "EULA" = "TRUE";
-      "MEMORY" = "4G";
-      "ONLINE_MODE" = "FALSE";
-    };
-
-    volumes = [
-      "/var/lib/minecraft:/data"
-    ];
-  };
-
-  /*
-    services.factorio = {
-      enable = true;
-      package = pkgs.factorio-headless;
-      port = 5864;
-      openFirewall = true;
-      saveName = "mainSave";
-      stateDirName = "factorio/";
-
-      #extraArgs = [ "--disable-space-age" ];
-    };
-  */
-
 }
