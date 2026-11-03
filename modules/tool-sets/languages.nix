@@ -14,6 +14,7 @@
     python313Packages.pydbus
     python313Packages.black
     python3Packages.requests
+    pkgs.python3Packages.httpie
 
     # processing json inputs
     jq

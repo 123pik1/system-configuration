@@ -12,6 +12,7 @@
     kdePackages.konsole
     kitty
     cool-retro-term
+    ghostty
 
     #########
     # games #

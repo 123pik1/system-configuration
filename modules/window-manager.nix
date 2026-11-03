@@ -38,8 +38,6 @@
 
     nwg-drawer
 
-    ghostty
-
     kdePackages.qtstyleplugin-kvantum
 
     # for auth in file manager to mount disks
@@ -72,7 +70,6 @@
 
     # wifi
     iwgtk
-    networkmanager
 
     pipewire
     wireplumber

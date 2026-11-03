@@ -6,5 +6,6 @@
     pkgs.postman
     pkgs.traceroute
     pkgs.tcpdump
+    pkgs.networkmanager
   ];
 }

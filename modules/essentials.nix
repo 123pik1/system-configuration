@@ -31,19 +31,9 @@ in
     };
   };
 
-  environment.systemPackages = [
-    pkgs.yazi
-    pkgs.fastfetch
-    pkgs.cloudflared
-    pkgs.javaPackages.compiler.temurin-bin.jdk-25
-    pkgs.hdparm
-    pkgs.php
-    pkgs.yt-dlp
-    pkgs.screen
-    pkgs.python3
-    pkgs.python3Packages.httpie
-    pkgs.gh
-    pkgs.git
+  imports = [
+    ./tool-sets/cli-tools.nix
+    ./tool-sets/server-tools.nix
   ];
 
   powerManagement.powerUpCommands = ''

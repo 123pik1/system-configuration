@@ -62,7 +62,7 @@ in
           "drive.${domain}" = "http://127.0.0.1:${drivePort}";
           #"dashboard.${domain}" = "http://127.0.0.1:${dashboardPort}";
           #"git.${domain}" = "http://127.0.0.1:6969";
-          "whiteboard.${domain}" = "http://127.0.0.1:${whiteboardPort}";
+          # "whiteboard.${domain}" = "http://127.0.0.1:${whiteboardPort}";
           "api-blog.${domain}" = "http://127.0.0.1:${blogBackendPort}";
           "blog.${domain}" = "http://127.0.0.1:${blogFrontendPot}";
           "git.${domain}" = "http://127.0.0.1:${gitPort}";
