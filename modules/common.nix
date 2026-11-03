@@ -5,6 +5,10 @@
     ./tool-sets/pwa-s.nix
     ./tool-sets/languages.nix
     ./tool-sets/net-tools.nix
+    ./tool-sets/common-tools.nix
+    ./tool-sets/gui-application-set.nix
+    ./tool-sets/cli-tools.nix
+    ./tool-sets/virtualisation-tools.nix
   ];
 
   nixpkgs.config = {
@@ -12,132 +16,6 @@
       "gtk+".broken = "warn";
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    antigravity-cli
-
-    typst
-    typship
-
-    google-chrome
-
-    texstudio
-
-    traceroute
-
-    ripdrag
-
-    kdePackages.breeze
-
-    onefetch
-
-    # for security
-    sops
-
-    # normal things
-    krita
-
-    simple-scan
-
-    anki
-
-    fastfetch
-
-    trash-cli
-    wineWow64Packages.stable
-    winetricks
-    # Partition management
-    kdePackages.partitionmanager
-    kdePackages.kpmcore
-    kdePackages.extra-cmake-modules
-    gparted
-
-    #############
-    # net tools #
-    #############
-    wget
-    wireshark
-    postman
-    #################
-    # Communicators #
-    #################
-
-    # discord
-    discord-ptb
-
-    #########
-    # other #
-    #########
-
-    # md viewer:
-    glow
-
-    # photo
-    imv
-    swayimg
-
-    # make
-    gnumake
-
-    # music
-    cmus
-
-    # system tellers
-    btop
-
-    # PDF and POSTSCRIPT
-    gv
-
-    # text file converter
-    pandoc
-
-    # git
-    git
-    gh
-    lazygit
-
-    # zip
-    unzip
-
-    # virtualization
-    qemu
-    docker
-    docker-compose
-    virt-manager
-
-    tcpreplay
-
-    lazydocker
-
-    # office things
-    onlyoffice-desktopeditors
-
-    # micro jump plugin dependiences
-    fzf
-    ctags
-
-    #######
-    # fun #
-    #######
-
-    lolcat
-
-    #########
-    # games #
-    #########
-
-    gamescope
-    moonlight-qt
-    heroic
-
-    #############
-    # terminals #
-    #############
-    kdePackages.konsole
-    kitty
-    cool-retro-term
-
-  ];
 
   programs = {
 

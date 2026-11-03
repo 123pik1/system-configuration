@@ -26,8 +26,15 @@
     clang-tools
     gcc
     ftxui
+
+    # make
+    gnumake
+
     # for working clang
     bear
 
+    # typst
+    typst
+    typship
   ];
 }
