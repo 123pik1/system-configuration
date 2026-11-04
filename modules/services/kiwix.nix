@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  zimLibrary = "/mnt/1TB_STORAGE_SSD/zim_archives";
+  zimLibrary = "/mnt/1TB_storage_SSD/zim_archives";
 
   downloadArchWiki = pkgs.writeShellScriptBin "download_arch_wiki" ''
     mkdir -p "${zimLibrary}"
