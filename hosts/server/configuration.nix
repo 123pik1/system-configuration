@@ -19,6 +19,7 @@
     ./../../modules/services/mc.nix
     ./../../modules/services/rebuild-switch.nix
     ./../../modules/secrets.nix
+    ./../../modules/services/kiwix.nix
   ];
 
   sops = {
