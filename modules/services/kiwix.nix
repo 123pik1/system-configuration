@@ -2,19 +2,19 @@
 let
   zimLibrary = "/mnt/1TB_STORAGE_SSD/zim_archives";
 
-  downloadArchWiki = pkgs.writeShellScriptBin "downloadArchWiki" ''
+  downloadArchWiki = pkgs.writeShellScriptBin "download_arch_wiki" ''
     mkdir -p "${zimLibrary}"
     cd ${zimLibrary}
     wget https://download.kiwix.org/zim/other/archlinux_en_all_maxi.zim
   '';
 
-  downloadNixWiki = pkgs.writeShellScriptBin "downloadNixWiki" ''
+  downloadNixWiki = pkgs.writeShellScriptBin "download_nix_wiki" ''
     mkdir -p "${zimLibrary}"
     cd ${zimLibrary}
     wget https://download.kiwix.org/zim/other/nixos_en_all_maxi.zim
   '';
 
-  downloadWiki_EN_nopic = pkgs.writeShellScriptBin "downloadWiki_EN_nopic" ''
+  downloadWiki_EN_nopic = pkgs.writeShellScriptBin "download_wiki_en_nopic" ''
     mkdir -p "${zimLibrary}"
     cd ${zimLibrary}
     wget https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic.zim
