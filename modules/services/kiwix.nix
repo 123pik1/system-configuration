@@ -38,6 +38,7 @@ in
 
   environment.systemPackages = with pkgs; [
     kiwix-tools
+    wget
 
     # Download wikis
     downloadWiki_EN_nopic
