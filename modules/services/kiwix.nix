@@ -53,7 +53,7 @@ in
       Restart = "always";
       RestartSec = "10s";
 
-      Type = "Exec";
+      Type = "exec";
       User = "kiwix";
       Group = "kiwix";
       WorkingDirectory = zimLibrary;
