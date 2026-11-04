@@ -40,7 +40,7 @@ let
       echo "Błąd: nie znaleziono pliku Wikipedii."
     fi
   '';
-  port = 9999;
+  port = 5555;
 
 in
 {
