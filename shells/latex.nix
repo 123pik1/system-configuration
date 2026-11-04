@@ -1,10 +1,10 @@
-{pkgs}:
+{ pkgs }:
 pkgs.mkShell {
-    buildInputs = [
-        pkgs.texliveFull
-    ];
+  buildInputs = [
+    pkgs.texliveFull
+  ];
 
-    shellHook = ''
+  shellHook = ''
     echo "latex environment"
-    '';
+  '';
 }
