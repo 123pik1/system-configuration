@@ -97,17 +97,6 @@
 
       };
 
-      nixOnDroidConfiguration.pixel = nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = pkgs-arm;
-        modules = [
-          ./hosts/pixel-10/configuration.nix
-        ];
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-
       devShells.${system} = {
         default = import ./shells/tauri.nix { inherit pkgs; };
         nids = import ./shells/ml-nids.nix { inherit pkgs; };
