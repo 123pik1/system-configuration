@@ -20,6 +20,7 @@
     ./../../modules/services/rebuild-switch.nix
     ./../../modules/secrets.nix
     ./../../modules/services/kiwix.nix
+    ./../../modules/services/ollama.nix
   ];
 
   sops = {
