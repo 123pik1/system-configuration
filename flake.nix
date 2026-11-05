@@ -54,10 +54,6 @@
         config.allowUnfree = true;
       };
 
-      pkgs-arm = import nixpkgs {
-        system = "aarch64-linux";
-        config.allowUnfree = true;
-      };
     in
     {
       nixosConfigurations = {
@@ -98,7 +94,6 @@
       };
 
       devShells.${system} = {
-        default = import ./shells/tauri.nix { inherit pkgs; };
         nids = import ./shells/ml-nids.nix { inherit pkgs; };
         java = import ./shells/java.nix { inherit pkgs; };
         angular = import ./shells/angular.nix { inherit pkgs; };
@@ -110,6 +105,7 @@
         tauri = import ./shells/tauri.nix { inherit pkgs; };
         rust96 = import ./shells/rust-1.96.nix { inherit pkgs; };
         mc = import ./shells/mc.nix { inherit pkgs; };
+        python-rag = import ./shells/python-rag.nix { inherit pkgs; };
       };
     };
 
