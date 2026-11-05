@@ -11,8 +11,7 @@ in
 
   services.ollama = {
     enable = true;
-    package = pkgs.ollama;
-    acceleration = null;
+    package = pkgs.ollama-cpu;
     host = localhostAddress;
     port = ollamaPort;
 
