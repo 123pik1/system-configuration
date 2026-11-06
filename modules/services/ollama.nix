@@ -7,6 +7,7 @@ in
 {
   environment.variables = {
     OLLAMA_HOST = "${localhostAddress}:${toString ollamaPort}";
+    OLLAMA_NAME = "${ollamaModel}";
   };
 
   services.ollama = {
