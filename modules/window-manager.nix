@@ -20,17 +20,40 @@
     ];
     config.common.default = "*";
   };
-
-  services.greetd = {
+  # Alternative to greetd
+  programs.regreet = {
     enable = true;
     settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
-        user = "greeter";
+      background = {
+        path = "/run/current-system/sw/share/backgrounds/gnome/vines-l.svg";
+        fit = "Cover";
+      };
+
+      GTK = {
+        application_prefer_dark_theme = true;
+      };
+
+      Greeter = {
+        remember_user = true;
+
+        remember_user_session = true;
+
+        default_user = "pik";
       };
     };
   };
-
+  # Standard tui greeter
+  /*
+    services.greetd = {
+      enable = false;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
+          user = "greeter";
+        };
+      };
+    };
+  */
   # for auth in file manager to mount disks
   security.polkit.enable = true;
 
