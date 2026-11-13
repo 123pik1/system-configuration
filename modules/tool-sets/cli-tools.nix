@@ -5,6 +5,8 @@
 
     ollama
 
+    poppler-utils
+
     #########
     # other #
     #########
