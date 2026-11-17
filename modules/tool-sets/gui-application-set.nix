@@ -59,7 +59,8 @@
     simple-scan
 
     # communicators
-    discord-ptb
+    discord
+    discord-sh
 
     # PDF and POSTSCRIPT
     gv
