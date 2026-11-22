@@ -34,6 +34,7 @@ in
       backupDir = cloudDriveBackupDir;
       domain = domain;
     })
+    ./services/update-services.nix
   ];
 
   sops.secrets."discord_token" = { };
@@ -103,9 +104,6 @@ in
       OnUnitActiveSec = "daily";
       Unit = "yt-dlp-download.service";
     };
-  };
-
-  systemd.services = {
   };
 
   systemd.timers.nextcloudBackup = {
