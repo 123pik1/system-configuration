@@ -6,13 +6,13 @@ let
 
   services = [
     {
-      dir = "/ścieżka/blog-backend";
-      build = "docker build -t moj-blog:backendv1 .";
+      dir = "/var/lib/blog-services/blog-backend";
+      build = "mvn -B clean package && docker build -t moj-blog:backendv1 .";
       restart = "systemctl restart docker-blog-backend.service";
     }
 
     {
-      dir = "/ścieżka/blog-frontend";
+      dir = "/var/lib/blog-services/blog-frontend";
       build = "docker build -t blog-frontend:v4 .";
       restart = "systemctl restart docker-blog-frontend.service";
     }

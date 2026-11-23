@@ -35,6 +35,7 @@ in
       domain = domain;
     })
     ./services/update-services.nix
+    ./services/rebuild-switch.nix
   ];
 
   sops.secrets."discord_token" = { };
