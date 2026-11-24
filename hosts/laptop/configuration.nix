@@ -17,6 +17,7 @@
     ./../../modules/scripts.nix
     ./../../modules/shell.nix
     ./../../modules/secrets.nix
+    ./../../modules/scripts/toggle-mirror-hyprland.nix
   ];
 
   sops.age.keyFile = "/home/pik/.config/sops/age/keys.txt";
